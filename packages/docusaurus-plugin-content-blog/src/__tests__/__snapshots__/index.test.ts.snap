@@ -3,6 +3,8 @@
 exports[`blog plugin process blog posts load content 1`] = `
 {
   "/blog/tags/tag-1": {
+    "description": undefined,
+    "inline": true,
     "items": [
       "/simple/slug/another",
       "/another/tags",
@@ -63,6 +65,8 @@ exports[`blog plugin process blog posts load content 1`] = `
     "unlisted": false,
   },
   "/blog/tags/tag-2": {
+    "description": undefined,
+    "inline": true,
     "items": [
       "/another/tags",
       "/another/tags2",
@@ -117,7 +121,9 @@ exports[`blog plugin process blog posts load content 2`] = `
       "authors": [
         {
           "imageURL": undefined,
+          "key": null,
           "name": "Sébastien Lorber",
+          "page": null,
           "title": "Docusaurus maintainer",
           "url": "https://sebastienlorber.com",
         },
@@ -148,6 +154,8 @@ exports[`blog plugin process blog posts load content 2`] = `
       "source": "@site/blog/another-simple-slug-with-tags.md",
       "tags": [
         {
+          "description": undefined,
+          "inline": true,
           "label": "tag1",
           "permalink": "/blog/tags/tag-1",
         },
@@ -189,10 +197,14 @@ exports[`blog plugin process blog posts load content 2`] = `
       "source": "@site/blog/another-with-tags.md",
       "tags": [
         {
+          "description": undefined,
+          "inline": true,
           "label": "tag1",
           "permalink": "/blog/tags/tag-1",
         },
         {
+          "description": undefined,
+          "inline": true,
           "label": "tag2",
           "permalink": "/blog/tags/tag-2",
         },
@@ -230,10 +242,14 @@ exports[`blog plugin process blog posts load content 2`] = `
       "source": "@site/blog/another-with-tags2.md",
       "tags": [
         {
+          "description": undefined,
+          "inline": true,
           "label": "tag1",
           "permalink": "/blog/tags/tag-1",
         },
         {
+          "description": undefined,
+          "inline": true,
           "label": "tag2",
           "permalink": "/blog/tags/tag-2",
         },
@@ -248,6 +264,8 @@ exports[`blog plugin process blog posts load content 2`] = `
 exports[`blog plugin works on blog tags without pagination 1`] = `
 {
   "/blog/tags/tag-1": {
+    "description": undefined,
+    "inline": true,
     "items": [
       "/simple/slug/another",
       "/another/tags",
@@ -278,6 +296,8 @@ exports[`blog plugin works on blog tags without pagination 1`] = `
     "unlisted": false,
   },
   "/blog/tags/tag-2": {
+    "description": undefined,
+    "inline": true,
     "items": [
       "/another/tags",
       "/another/tags2",
@@ -306,6 +326,8 @@ exports[`blog plugin works on blog tags without pagination 1`] = `
     "unlisted": false,
   },
   "/blog/tags/unlisted": {
+    "description": undefined,
+    "inline": true,
     "items": [
       "/another/blog-with-tags-unlisted",
     ],
@@ -337,6 +359,8 @@ exports[`blog plugin works on blog tags without pagination 1`] = `
 exports[`blog plugin works with blog tags 1`] = `
 {
   "/blog/tags/tag-1": {
+    "description": undefined,
+    "inline": true,
     "items": [
       "/simple/slug/another",
       "/another/tags",
@@ -382,6 +406,8 @@ exports[`blog plugin works with blog tags 1`] = `
     "unlisted": false,
   },
   "/blog/tags/tag-2": {
+    "description": undefined,
+    "inline": true,
     "items": [
       "/another/tags",
       "/another/tags2",
@@ -410,6 +436,8 @@ exports[`blog plugin works with blog tags 1`] = `
     "unlisted": false,
   },
   "/blog/tags/unlisted": {
+    "description": undefined,
+    "inline": true,
     "items": [
       "/another/blog-with-tags-unlisted",
     ],
