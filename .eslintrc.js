@@ -9,16 +9,18 @@ const OFF = 0;
 const WARNING = 1;
 const ERROR = 2;
 
-const ClientRestrictedImportPatterns = [
-  // Prevent importing lodash in client bundle for bundle size
-  'lodash',
-  'lodash.**',
-  'lodash/**',
-  // Prevent importing server code in client bundle
-  '**/../babel/**',
-  '**/../server/**',
-  '**/../commands/**',
-  '**/../webpack/**',
+// Prevent importing lodash, usually for browser bundle size reasons
+const LodashImportPatterns = ['lodash', 'lodash.**', 'lodash/**'];
+
+// Prevent importing content plugins, usually for coupling reasons
+const ContentPluginsImportPatterns = [
+  '@docusaurus/plugin-content-blog',
+  '@docusaurus/plugin-content-blog/**',
+  // TODO fix theme-common => docs dependency issue
+  // '@docusaurus/plugin-content-docs',
+  // '@docusaurus/plugin-content-docs/**',
+  '@docusaurus/plugin-content-pages',
+  '@docusaurus/plugin-content-pages/**',
 ];
 
 module.exports = {
@@ -378,7 +380,14 @@ module.exports = {
     // We don't provide any escape hatches for this rule. Rest siblings and
     // function placeholder params are always ignored, and any other unused
     // locals must be justified with a disable comment.
-    '@typescript-eslint/no-unused-vars': [ERROR, {ignoreRestSiblings: true}],
+    '@typescript-eslint/no-unused-vars': [
+      ERROR,
+      {
+        ignoreRestSiblings: true,
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+      },
+    ],
     '@typescript-eslint/prefer-optional-chain': ERROR,
     '@docusaurus/no-html-links': ERROR,
     '@docusaurus/prefer-docusaurus-heading': ERROR,
@@ -394,6 +403,7 @@ module.exports = {
           '@',
           'WebContainers',
           'Twitter',
+          'X',
           'GitHub',
           'Dev.to',
           '1.x',
@@ -408,7 +418,33 @@ module.exports = {
         'no-restricted-imports': [
           'error',
           {
-            patterns: ClientRestrictedImportPatterns,
+            patterns: [
+              ...LodashImportPatterns,
+              ...ContentPluginsImportPatterns,
+              // Prevent importing server code in client bundle
+              '**/../babel/**',
+              '**/../server/**',
+              '**/../commands/**',
+              '**/../webpack/**',
+            ],
+          },
+        ],
+      },
+    },
+    {
+      files: [
+        'packages/docusaurus-theme-common/src/**/*.{js,ts,tsx}',
+        'packages/docusaurus-utils-common/src/**/*.{js,ts,tsx}',
+      ],
+      excludedFiles: '*.test.{js,ts,tsx}',
+      rules: {
+        'no-restricted-imports': [
+          'error',
+          {
+            patterns: [
+              ...LodashImportPatterns,
+              ...ContentPluginsImportPatterns,
+            ],
           },
         ],
       },
@@ -420,7 +456,7 @@ module.exports = {
         'no-restricted-imports': [
           'error',
           {
-            patterns: ClientRestrictedImportPatterns.concat(
+            patterns: LodashImportPatterns.concat(
               // Prevents relative imports between React theme components
               [
                 '../**',
