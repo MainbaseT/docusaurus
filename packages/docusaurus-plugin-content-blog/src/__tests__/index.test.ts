@@ -13,6 +13,7 @@ import {
   getFileCommitDate,
   LAST_UPDATE_FALLBACK,
 } from '@docusaurus/utils';
+import {DEFAULT_FUTURE_CONFIG} from '@docusaurus/core/src/server/configValidation';
 import pluginContentBlog from '../index';
 import {validateOptions} from '../options';
 import type {
@@ -106,7 +107,8 @@ const getPlugin = async (
     baseUrl: '/',
     url: 'https://docusaurus.io',
     markdown,
-    future: {},
+    future: DEFAULT_FUTURE_CONFIG,
+    staticDirectories: ['static'],
   } as DocusaurusConfig;
   return pluginContentBlog(
     {
@@ -160,6 +162,8 @@ describe('blog plugin', () => {
     );
     expect(relativePathsToWatch).toEqual([
       'i18n/en/docusaurus-plugin-content-blog/authors.yml',
+      'i18n/en/docusaurus-plugin-content-blog/tags.yml',
+      'blog/tags.yml',
       'i18n/en/docusaurus-plugin-content-blog/**/*.{md,mdx}',
       'blog/**/*.{md,mdx}',
     ]);
@@ -188,6 +192,8 @@ describe('blog plugin', () => {
       prevItem: undefined,
       tags: [
         {
+          description: undefined,
+          inline: true,
           label: 'date',
           permalink: '/blog/tags/date',
         },
@@ -216,12 +222,19 @@ describe('blog plugin', () => {
       authors: [
         {
           name: 'Yangshun Tay (translated)',
+          imageURL: undefined,
+          key: null,
+          page: null,
+          socials: {},
         },
         {
           email: 'lorber.sebastien@gmail.com',
           key: 'slorber',
           name: 'Sébastien Lorber (translated)',
           title: 'Docusaurus maintainer (translated)',
+          imageURL: undefined,
+          socials: undefined,
+          page: {permalink: '/blog/authors/slorber-custom-permalink-localized'},
         },
       ],
       date: new Date('2018-12-14'),
@@ -232,9 +245,23 @@ describe('blog plugin', () => {
           },
           'slorber',
         ],
+        tags: ['inlineTag', 'globalTag'],
         title: 'Happy 1st Birthday Slash! (translated)',
       },
-      tags: [],
+      tags: [
+        {
+          description: undefined,
+          inline: true,
+          label: 'inlineTag',
+          permalink: '/blog/tags/inline-tag',
+        },
+        {
+          description: 'Global Tag description (en)',
+          inline: false,
+          label: 'Global Tag label (en)',
+          permalink: '/blog/tags/global-tag-permalink (en)',
+        },
+      ],
       prevItem: {
         permalink: '/blog/date-matter',
         title: 'date-matter',
@@ -269,10 +296,14 @@ describe('blog plugin', () => {
       },
       tags: [
         {
+          description: undefined,
+          inline: true,
           label: 'date',
           permalink: '/blog/tags/date',
         },
         {
+          description: undefined,
+          inline: true,
           label: 'complex',
           permalink: '/blog/tags/complex',
         },
@@ -297,6 +328,8 @@ describe('blog plugin', () => {
           title: 'Docusaurus maintainer',
           url: 'https://sebastienlorber.com',
           imageURL: undefined,
+          page: null,
+          key: null,
         },
       ],
       prevItem: undefined,
@@ -516,6 +549,8 @@ describe('blog plugin', () => {
         postsPerPage: 1,
         processBlogPosts: async ({blogPosts}) =>
           blogPosts.filter((blog) => blog.metadata.tags[0]?.label === 'tag1'),
+        onInlineTags: 'ignore',
+        tags: false,
       },
       DefaultI18N,
     );
