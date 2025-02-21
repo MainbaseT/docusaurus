@@ -248,7 +248,7 @@ Some valid CommonMark features won't work with MDX ([more info](https://mdxjs.co
 
 Docusaurus v3 makes it possible to opt-in for a less strict, standard [CommonMark](https://commonmark.org/) support with the following options:
 
-- The `format: md` front matter
+- The `mdx.format: md` front matter
 - The `.md` file extension combined with the `siteConfig.markdown.format: "detect"` configuration
 
 This feature is **experimental** and currently has a few [limitations](https://github.com/facebook/docusaurus/issues/9092).
@@ -326,12 +326,6 @@ import PartialExample from './_markdown-partial-example.mdx';
 ```
 
 This way, you can reuse content among multiple pages and avoid duplicating materials.
-
-:::warning
-
-Currently, the table of contents does not contain the imported Markdown headings. This is a technical limitation that we are trying to solve ([issue](https://github.com/facebook/docusaurus/issues/3915)).
-
-:::
 
 ## Available exports {#available-exports}
 
